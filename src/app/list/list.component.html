@@ -1,3 +1,19 @@
+<div
+  *ngIf="applicants.length === 0"
+  class="spinner-border text-primary"
+  role="status"
+>
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+<div class="d-flex flex-row-reverse">
+  <a routerLink="/">新規登録</a>
+</div>
+
 <ul *ngFor="let applicant of applicants">
-  <li>{{ applicant.name }}</li>
+  <li>
+    <a routerLink="/detail">
+      {{ applicant.name }}
+    </a>
+  </li>
 </ul>

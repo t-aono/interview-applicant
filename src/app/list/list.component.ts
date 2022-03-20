@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Applicant } from '../applicant';
-import { APPLICANTS } from '../mock-applicants';
+import { ApplicantService } from '../applicant.service';
 
 @Component({
   selector: 'ia-list',
@@ -8,9 +8,19 @@ import { APPLICANTS } from '../mock-applicants';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  applicants: Applicant[] = APPLICANTS;
+  applicants: Applicant[];
 
-  constructor() {}
+  constructor(private applicantService: ApplicantService) {
+    this.applicants = [];
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(() => this.getApplicants(), 1000);
+  }
+
+  getApplicants(): void {
+    this.applicantService
+      .getApplicants()
+      .subscribe((applicants) => (this.applicants = applicants));
+  }
 }

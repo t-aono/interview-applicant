@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Applicant } from '../applicant';
+import { ApplicantService } from '../applicant.service';
 
 @Component({
   selector: 'ia-form',
@@ -8,13 +9,17 @@ import { Applicant } from '../applicant';
 })
 export class FormComponent implements OnInit {
   applicant: Applicant = {
-    kana: 'さとう',
-    name: '佐藤',
-    birthday: '19990123',
-    tel: '09012345678',
+    kana: '',
+    name: '',
+    birthday: '',
+    tel: '',
   };
 
-  constructor() {}
+  constructor(private applicantService: ApplicantService) {}
 
   ngOnInit(): void {}
+
+  addApplicant(applicant: Applicant): void {
+    this.applicantService.addApplicant(applicant);
+  }
 }

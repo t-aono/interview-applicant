@@ -7,9 +7,10 @@ import { FormComponent } from './form/form.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ListComponent } from './list/list.component';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
-  declarations: [AppComponent, FormComponent, HeaderComponent, ListComponent],
+  declarations: [AppComponent, FormComponent, HeaderComponent, ListComponent, DetailComponent],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
