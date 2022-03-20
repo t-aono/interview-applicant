@@ -18,4 +18,10 @@
   <label class="form-label">電話番号</label>
   <input type="text" [(ngModel)]="applicant.tel" class="form-control" />
 </div>
-<button type="button" class="btn btn-outline-info">送信</button>
+<button
+  (click)="addApplicant(applicant)"
+  type="button"
+  class="btn btn-outline-info"
+>
+  送信
+</button>
