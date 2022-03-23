@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Applicant } from '../applicant';
 import { ApplicantService } from '../applicant.service';
 
@@ -15,11 +16,16 @@ export class FormComponent implements OnInit {
     tel: '',
   };
 
-  constructor(private applicantService: ApplicantService) {}
+  constructor(
+    private applicantService: ApplicantService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
   addApplicant(applicant: Applicant): void {
-    this.applicantService.addApplicant(applicant);
+    this.applicantService
+      .addApplicant(applicant)
+      .then(() => this.router.navigateByUrl('/list'));
   }
 }

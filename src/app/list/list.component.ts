@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Applicant } from '../applicant';
 import { ApplicantService } from '../applicant.service';
 
@@ -8,19 +9,11 @@ import { ApplicantService } from '../applicant.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  applicants: Applicant[];
+  applicants: Observable<Applicant[]>;
 
   constructor(private applicantService: ApplicantService) {
-    this.applicants = [];
+    this.applicants = this.applicantService.applicants;
   }
 
-  ngOnInit(): void {
-    setTimeout(() => this.getApplicants(), 1000);
-  }
-
-  getApplicants(): void {
-    this.applicantService
-      .getApplicants()
-      .subscribe((applicants) => (this.applicants = applicants));
-  }
+  ngOnInit(): void {}
 }

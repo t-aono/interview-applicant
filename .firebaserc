@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "interview-applicant": {
+      "hosting": {
+        "interview-applicant": [
+          "interview-applicant"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "interview-applicant"
+  }
+}
