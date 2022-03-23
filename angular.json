@@ -31,7 +31,8 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"]
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"],
+            "allowedCommonJsDependencies": ["firebase", "@firebase/database"]
           },
           "configurations": {
             "production": {
@@ -95,6 +96,16 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "interview-applicant:build:production",
+            "firebaseProject": "interview-applicant",
+            "firebaseHostingSite": "interview-applicant"
           }
         }
       }

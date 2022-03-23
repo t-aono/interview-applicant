@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-// import { Applicant } from './applicant';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
 import { Applicant } from './class/applicant';
-import { APPLICANTS } from './mock-applicants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApplicantService {
-  applicants = APPLICANTS;
+  private applicantsCollection: AngularFirestoreCollection<Applicant>;
+  applicants: Observable<Applicant[]>;
 
-  constructor() {}
-
-  getApplicants(): Observable<Applicant[]> {
-    return of(this.applicants);
+  constructor(private afs: AngularFirestore) {
+    this.applicantsCollection = afs.collection<Applicant>('applicants');
+    this.applicants = this.applicantsCollection.valueChanges();
   }
 
-  addApplicant(applicant: Applicant): void {
-    this.applicants.push(new Applicant(applicant));
-    console.log(this.applicants);
+  addApplicant(applicant: Applicant) {
+    return this.applicantsCollection.add(applicant);
   }
 }
