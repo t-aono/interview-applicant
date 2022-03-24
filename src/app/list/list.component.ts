@@ -9,10 +9,10 @@ import { ApplicantService } from '../applicant.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  applicants: Observable<Applicant[]>;
+  applicants$: Observable<Applicant[]>;
 
   constructor(private applicantService: ApplicantService) {
-    this.applicants = this.applicantService.applicants;
+    this.applicants$ = this.applicantService.applicants;
   }
 
   ngOnInit(): void {}
