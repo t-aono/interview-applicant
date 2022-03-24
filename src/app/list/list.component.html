@@ -1,14 +1,18 @@
-<!-- <div *ngIf="applicants" class="spinner-border text-primary" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div> -->
-
 <div class="d-flex flex-row-reverse">
   <a routerLink="/">新規登録</a>
 </div>
 
-<ul *ngFor="let applicant of applicants | async">
+<!-- <div
+  *ngIf="applicants$ | async"
+  class="spinner-border text-primary"
+  role="status"
+>
+  <span class="visually-hidden">Loading...</span>
+</div> -->
+
+<ul *ngFor="let applicant of applicants$ | async">
   <li>
-    <a routerLink="/detail">
+    <a routerLink="/detail/{{ applicant.id }}">
       {{ applicant.name }}
     </a>
   </li>
