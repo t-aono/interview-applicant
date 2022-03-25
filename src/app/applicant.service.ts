@@ -11,12 +11,11 @@ import { Applicant } from './class/applicant';
 })
 export class ApplicantService {
   private applicantsCollection: AngularFirestoreCollection<Applicant>;
-  applicants: Observable<Applicant[]>;
-  applicant$: Observable<Applicant>;
+  applicants$: Observable<Applicant[]>;
 
   constructor(private afs: AngularFirestore) {
     this.applicantsCollection = afs.collection<Applicant>('applicants');
-    this.applicants = this.applicantsCollection.snapshotChanges().pipe(
+    this.applicants$ = this.applicantsCollection.snapshotChanges().pipe(
       map((actions) =>
         actions.map((a) => {
           const data = a.payload.doc.data() as Applicant;
@@ -26,11 +25,6 @@ export class ApplicantService {
       )
     );
   }
-
-  // getApplicant(id: string) {
-  //   const applicantDoc = this.afs.doc<Applicant>(`applicant/${id}`);
-  //   this.applicant$ = applicantDoc.valueChanges();
-  // }
 
   addApplicant(applicant: Applicant) {
     return this.applicantsCollection.add(applicant);

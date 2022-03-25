@@ -12,7 +12,7 @@ export class ListComponent implements OnInit {
   applicants$: Observable<Applicant[]>;
 
   constructor(private applicantService: ApplicantService) {
-    this.applicants$ = this.applicantService.applicants;
+    this.applicants$ = this.applicantService.applicants$;
   }
 
   ngOnInit(): void {}
