@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Applicant } from '../class/applicant';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'ia-detail',
@@ -10,14 +14,31 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
+  private id: string;
+  private applicantDoc: AngularFirestoreDocument<Applicant>;
   applicant$: Observable<Applicant>;
-  inputs: { name: string };
+  isUpdated: boolean = false;
 
-  constructor(private route: ActivatedRoute, private afs: AngularFirestore) {}
+  constructor(
+    private route: ActivatedRoute,
+    private afs: AngularFirestore,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    const id = `${this.route.snapshot.paramMap.get('id')}`;
-    const applicantDoc = this.afs.doc<Applicant>(`applicants/${id}`);
-    this.applicant$ = applicantDoc.valueChanges();
+    this.id = `${this.route.snapshot.paramMap.get('id')}`;
+    this.applicantDoc = this.afs.doc<Applicant>(`applicants/${this.id}`);
+    this.applicant$ = this.applicantDoc.valueChanges();
+  }
+
+  updateApplicant(applicant: Applicant): void {
+    this.applicantDoc.update(applicant);
+    this.isUpdated = true;
+  }
+
+  deleteApplicant(): void {
+    if (window.confirm('削除しますか？')) {
+      this.applicantDoc.delete().then(() => this.router.navigateByUrl('/list'));
+    }
   }
 }

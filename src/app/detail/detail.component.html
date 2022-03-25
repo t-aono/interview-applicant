@@ -3,6 +3,22 @@
     <label class="form-label">名前</label>
     <input type="text" [(ngModel)]="applicant.name" class="form-control" />
   </div>
+
+  <div class="d-flex gap-3">
+    <button routerLink="/list" class="btn btn-outline-secondary">戻る</button>
+    <button
+      (click)="updateApplicant(applicant)"
+      type="button"
+      class="btn btn-outline-info"
+    >
+      更新
+    </button>
+    <button (click)="deleteApplicant()" class="btn btn-outline-warning ms-auto">
+      削除
+    </button>
+  </div>
 </ng-container>
 
-<button routerLink="/list" class="btn btn-outline-secondary">戻る</button>
+<div *ngIf="isUpdated" class="alert alert-info mt-5" role="alert">
+  更新しました!
+</div>
