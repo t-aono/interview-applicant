@@ -5,15 +5,9 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable, map, of, mergeMap } from 'rxjs';
+import { Observable, of, pipe, mergeMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import {
-  Auth,
-  authState,
-  signInWithEmailAndPassword,
-  signOut,
-} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -29,11 +23,12 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authService.auth) {
-      return true;
-    } else {
-      this.router.navigateByUrl('/login');
-      return false;
-    }
+    return this.authService
+      .getAuthState()
+      .pipe(
+        mergeMap((user) =>
+          user ? of(true) : this.router.navigateByUrl('/login')
+        )
+      );
   }
 }
