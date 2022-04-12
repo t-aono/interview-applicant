@@ -1,0 +1,20 @@
+<h2>ログイン</h2>
+<div class="container">
+  <form #form="ngForm" (ngSubmit)="login(form)" class="form-group">
+    <input
+      ngModel
+      type="email"
+      name="email"
+      class="form-control"
+      placeholder="メールアドレスを入力"
+    />
+    <input
+      ngModel
+      type="password"
+      name="password"
+      class="form-control"
+      placeholder="パスワードを入力"
+    />
+    <button type="submit" class="btn btn-primary">ログイン</button>
+  </form>
+</div>
