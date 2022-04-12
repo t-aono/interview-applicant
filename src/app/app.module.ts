@@ -10,6 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
 import { environment } from '../environments/environment';
+import { LoginComponent } from './login/login.component';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 @NgModule({
   declarations: [
@@ -18,12 +20,14 @@ import { environment } from '../environments/environment';
     HeaderComponent,
     ListComponent,
     DetailComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
