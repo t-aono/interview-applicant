@@ -1,20 +1,24 @@
 <h2>ログイン</h2>
 <div class="container">
-  <form #form="ngForm" (ngSubmit)="login(form)" class="form-group">
-    <input
-      ngModel
-      type="email"
-      name="email"
-      class="form-control"
-      placeholder="メールアドレスを入力"
-    />
-    <input
-      ngModel
-      type="password"
-      name="password"
-      class="form-control"
-      placeholder="パスワードを入力"
-    />
+  <form #form="ngForm" (ngSubmit)="login(form)">
+    <div class="mb-3">
+      <input
+        ngModel
+        type="email"
+        name="email"
+        class="form-control"
+        placeholder="メールアドレスを入力"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        ngModel
+        type="password"
+        name="password"
+        class="form-control"
+        placeholder="パスワードを入力"
+      />
+    </div>
     <button type="submit" class="btn btn-primary">ログイン</button>
   </form>
 </div>
