@@ -1,6 +1,7 @@
 import { OnInit, Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -15,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   login(form: NgForm): void {
     const { email, password } = form.value;
-    this.authService
-      .login(email, password)
-      .then(() => this.router.navigateByUrl('/admin'));
+    signInWithEmailAndPassword(this.authService.auth, email, password)
+      .then(() => this.router.navigateByUrl('/admin'))
+      .catch((error) => console.log(error));
   }
 }
