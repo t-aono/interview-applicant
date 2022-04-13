@@ -3,10 +3,7 @@
     <div>
       <h1 class="fs-3 mx-auto mt-3">{{ title }}</h1>
     </div>
-    <ul class="nav justify-content-end">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/admin">一覧へ</a>
-      </li>
+    <ul class="nav justify-content-end" *ngIf="isAdmin">
       <li class="nav-item">
         <button
           type="button"
