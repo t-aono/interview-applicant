@@ -1,8 +1,8 @@
-import { Component, OnInit, Optional } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
+import { Component, OnInit } from '@angular/core';
 import { signOut } from 'firebase/auth';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'ia-header',
@@ -11,10 +11,17 @@ import { AuthService } from '../auth.service';
 })
 export class HeaderComponent implements OnInit {
   title = '面接希望者　入力画面';
+  isAdmin: boolean = false;
 
   constructor(public authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.getAuthState().subscribe((user) => {
+      console.log(user);
+      if (user) this.isAdmin = true;
+      else this.isAdmin = false;
+    });
+  }
 
   logout() {
     signOut(this.authService.auth).then(() =>
