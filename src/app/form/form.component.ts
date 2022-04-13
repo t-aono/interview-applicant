@@ -26,6 +26,6 @@ export class FormComponent implements OnInit {
   addApplicant(applicant: Applicant): void {
     this.applicantService
       .addApplicant(applicant)
-      .then(() => this.router.navigateByUrl('/list'));
+      .then(() => this.router.navigateByUrl('/admin'));
   }
 }
