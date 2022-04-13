@@ -1,10 +1,21 @@
 <nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
-    <h1 class="fs-3 mx-auto mt-3">{{ title }}</h1>
-    <div class="d-flex flex-row-reverse" *ngIf="authService.auth">
-      <button type="button" (click)="logout()" class="btn btn-secondary">
-        ログアウト
-      </button>
+  <div class="container">
+    <div>
+      <h1 class="fs-3 mx-auto mt-3">{{ title }}</h1>
     </div>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin">一覧へ</a>
+      </li>
+      <li class="nav-item">
+        <button
+          type="button"
+          (click)="logout()"
+          class="btn btn-outline-secondary"
+        >
+          ログアウト
+        </button>
+      </li>
+    </ul>
   </div>
 </nav>
