@@ -38,7 +38,9 @@ export class DetailComponent implements OnInit {
 
   deleteApplicant(): void {
     if (window.confirm('削除しますか？')) {
-      this.applicantDoc.delete().then(() => this.router.navigateByUrl('/list'));
+      this.applicantDoc
+        .delete()
+        .then(() => this.router.navigateByUrl('/admin'));
     }
   }
 }
