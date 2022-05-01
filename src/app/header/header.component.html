@@ -1,5 +1,18 @@
 <nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
-    <h1 class="fs-3 mx-auto mt-3">{{ title }}</h1>
+  <div class="container">
+    <div>
+      <h1 class="fs-3 mx-auto mt-3">{{ title }}</h1>
+    </div>
+    <ul class="nav justify-content-end" *ngIf="isAdmin">
+      <li class="nav-item">
+        <button
+          type="button"
+          (click)="logout()"
+          class="btn btn-outline-secondary"
+        >
+          ログアウト
+        </button>
+      </li>
+    </ul>
   </div>
 </nav>
