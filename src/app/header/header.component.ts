@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getAuthState().subscribe((user) => {
-      console.log(user);
       if (user) this.isAdmin = true;
       else this.isAdmin = false;
     });
