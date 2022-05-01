@@ -18,6 +18,6 @@ export class LoginComponent implements OnInit {
     const { email, password } = form.value;
     signInWithEmailAndPassword(this.authService.auth, email, password)
       .then(() => this.router.navigateByUrl('/admin'))
-      .catch((error) => console.log(error));
+      .catch((error) => alert(error));
   }
 }
