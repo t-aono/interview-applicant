@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { signOut } from 'firebase/auth';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { tap } from 'rxjs';
 
 @Component({
   selector: 'ia-header',

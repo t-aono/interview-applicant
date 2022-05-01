@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, mergeMap, of, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Applicant } from '../applicant';
 import { ApplicantService } from '../applicant.service';
 import { AuthService } from '../auth.service';
