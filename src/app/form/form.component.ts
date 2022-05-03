@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Applicant } from '../applicant';
-import { ApplicantService } from '../applicant.service';
+import { Applicant } from '../models/applicant';
+import { ApplicantService } from '../models/applicant.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -11,12 +11,13 @@ import { AuthService } from '../auth.service';
 })
 export class FormComponent implements OnInit {
   applicant: Applicant = {
-    kana: '',
+    src: '',
     name: '',
-    birthday: '',
-    tel: '',
   };
   isAdmin: boolean = false;
+  reader = new FileReader();
+  fileUrl: string | ArrayBuffer = '';
+  fileType: string = '';
 
   constructor(
     private applicantService: ApplicantService,
@@ -35,5 +36,14 @@ export class FormComponent implements OnInit {
     this.applicantService
       .addApplicant(applicant)
       .then(() => this.router.navigateByUrl('/admin'));
+  }
+
+  onChangeInput(event) {
+    const file = event.target.files[0];
+    this.fileType = file.type;
+    this.reader.onload = (e) => {
+      this.fileUrl = e.target.result;
+    };
+    this.reader.readAsDataURL(file);
   }
 }
