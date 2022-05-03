@@ -1,7 +1,5 @@
 export interface Applicant {
   id?: string;
-  kana: string;
+  src: string | ArrayBuffer;
   name: string;
-  birthday: string;
-  tel: string;
 }

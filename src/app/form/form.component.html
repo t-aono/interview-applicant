@@ -1,14 +1,26 @@
 <div class="d-flex flex-row-reverse" *ngIf="isAdmin">
   <a routerLink="/admin">一覧へ</a>
 </div>
-<!-- <div class="mb-3">
-  <label class="form-label">画像</label>
-  <input type="file" class="form-control" />
-</div>
 <div class="mb-3">
-  <label class="form-label">ふりがな</label>
-  <input type="text" [(ngModel)]="applicant.kana" class="form-control" />
-</div> -->
+  <label class="form-label">画像・動画</label>
+  <input
+    type="file"
+    multiple
+    [(ngModel)]="applicant.src"
+    (change)="onChangeInput($event)"
+    class="form-control"
+  />
+  <div>
+    <span>{{ fileType }}</span>
+    <img *ngIf="fileType === 'image/jpeg'" [src]="fileUrl" class="img-fluid" />
+    <video
+      *ngIf="fileType === 'video/mp4' || fileType === 'video/quicktime'"
+      [src]="fileUrl"
+      controls
+      class="img-fluid"
+    ></video>
+  </div>
+</div>
 <div class="mb-3">
   <label class="form-label">名前</label>
   <input type="text" [(ngModel)]="applicant.name" class="form-control" />
