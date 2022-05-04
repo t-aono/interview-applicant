@@ -1,5 +1,5 @@
 export interface Applicant {
   id?: string;
-  src: string | ArrayBuffer;
+  media: string | ArrayBuffer;
   name: string;
 }

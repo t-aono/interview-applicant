@@ -7,9 +7,11 @@ import { FormComponent } from './form/form.component';
 import { ListComponent } from './list/list.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guard/auth.guard';
+import { DoneComponent } from './done/done.component';
 
 const routes: Routes = [
   { path: '', component: FormComponent },
+  { path: 'done', component: DoneComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'admin',
