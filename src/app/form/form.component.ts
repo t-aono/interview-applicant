@@ -11,13 +11,13 @@ import { AuthService } from '../auth.service';
 })
 export class FormComponent implements OnInit {
   applicant: Applicant = {
-    src: '',
+    media: '',
     name: '',
   };
   isAdmin: boolean = false;
   reader = new FileReader();
-  fileUrl: string | ArrayBuffer = '';
-  fileType: string = '';
+  fileBlog: string | ArrayBuffer = '';
+  fileName: string;
 
   constructor(
     private applicantService: ApplicantService,
@@ -32,18 +32,23 @@ export class FormComponent implements OnInit {
     });
   }
 
-  addApplicant(applicant: Applicant): void {
+  addApplicant(): void {
     this.applicantService
-      .addApplicant(applicant)
-      .then(() => this.router.navigateByUrl('/admin'));
+      .addApplicant(this.applicant, this.fileBlog, this.fileName)
+      .then(() => this.router.navigateByUrl('/done'));
   }
 
-  onChangeInput(event) {
-    const file = event.target.files[0];
-    this.fileType = file.type;
+  onChangeMedia(event) {
+    this.applicant.media = event.target.files[0].name;
+    this.fileName = event.target.files[0].name;
     this.reader.onload = (e) => {
-      this.fileUrl = e.target.result;
+      this.fileBlog = e.target.result;
     };
-    this.reader.readAsDataURL(file);
+    this.reader.readAsArrayBuffer(event.target.files[0]);
+  }
+
+  clearInput() {
+    this.applicant.media = '';
+    this.applicant.name = '';
   }
 }

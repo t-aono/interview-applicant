@@ -6,35 +6,19 @@
   <input
     type="file"
     multiple
-    [(ngModel)]="applicant.src"
-    (change)="onChangeInput($event)"
+    (change)="onChangeMedia($event)"
     class="form-control"
   />
-  <div>
-    <span>{{ fileType }}</span>
-    <img *ngIf="fileType === 'image/jpeg'" [src]="fileUrl" class="img-fluid" />
-    <video
-      *ngIf="fileType === 'video/mp4' || fileType === 'video/quicktime'"
-      [src]="fileUrl"
-      controls
-      class="img-fluid"
-    ></video>
-  </div>
+  <button *ngIf="applicant.media" (click)="applicant.media = ''" class="btn">
+    ×
+  </button>
 </div>
 <div class="mb-3">
   <label class="form-label">名前</label>
   <input type="text" [(ngModel)]="applicant.name" class="form-control" />
 </div>
-<!-- <div class="mb-3">
-  <label class="form-label">生年月日</label>
-  <input type="date" [(ngModel)]="applicant.birthday" class="form-control" />
-</div>
-<div class="mb-3">
-  <label class="form-label">電話番号</label>
-  <input type="text" [(ngModel)]="applicant.tel" class="form-control" />
-</div> -->
 <button
-  (click)="addApplicant(applicant); applicant.name = ''"
+  (click)="addApplicant(); clearInput()"
   type="button"
   class="btn btn-outline-info"
 >
