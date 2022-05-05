@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { signOut } from 'firebase/auth';
 import { Router } from '@angular/router';
-import { AuthService } from '../../auth.service';
+import { AuthService } from 'app/service/auth.service';
 
 @Component({
   selector: 'ia-header',

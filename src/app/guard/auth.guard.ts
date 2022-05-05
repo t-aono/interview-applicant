@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Observable, of, pipe, mergeMap } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from 'app/service/auth.service';
 
 @Injectable({
   providedIn: 'root',

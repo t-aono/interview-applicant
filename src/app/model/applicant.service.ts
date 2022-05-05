@@ -4,8 +4,8 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
-import { Applicant } from './applicant';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { Applicant } from 'app/model/applicant';
 
 @Injectable({
   providedIn: 'root',
