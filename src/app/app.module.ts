@@ -13,8 +13,6 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { DoneComponent } from './done/done.component';
-import { MediaUrlPipe } from './pipe/media-url.pipe';
 
 @NgModule({
   declarations: [
@@ -24,8 +22,6 @@ import { MediaUrlPipe } from './pipe/media-url.pipe';
     ListComponent,
     DetailComponent,
     LoginComponent,
-    DoneComponent,
-    MediaUrlPipe,
   ],
   imports: [
     BrowserModule,
