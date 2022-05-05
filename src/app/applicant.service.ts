@@ -4,8 +4,7 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
-import { Applicant } from './applicant';
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { Applicant } from './class/applicant';
 
 @Injectable({
   providedIn: 'root',
@@ -27,11 +26,7 @@ export class ApplicantService {
     );
   }
 
-  async addApplicant(applicant: Applicant, fileBlob: any, fileName: string) {
-    const docRef = await this.applicantsCollection.add(applicant);
-    const storage = getStorage();
-    const mediaRef = ref(storage, `${docRef.id}/${fileName}`);
-    uploadBytes(mediaRef, fileBlob).then(() => console.log('Uploaded a file!'));
-    return docRef;
+  addApplicant(applicant: Applicant) {
+    return this.applicantsCollection.add(applicant);
   }
 }

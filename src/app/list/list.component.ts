@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { Applicant } from '../models/applicant';
-import { ApplicantService } from '../models/applicant.service';
+import { Applicant } from '../applicant';
+import { ApplicantService } from '../applicant.service';
 import { AuthService } from '../auth.service';
 
 @Component({
