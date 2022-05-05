@@ -1,0 +1,26 @@
+<div class="d-flex flex-row-reverse" *ngIf="isAdmin">
+  <a routerLink="/admin">一覧へ</a>
+</div>
+<div class="mb-3">
+  <label class="form-label">画像・動画</label>
+  <input
+    type="file"
+    multiple
+    (change)="onChangeMedia($event)"
+    class="form-control"
+  />
+  <button *ngIf="applicant.media" (click)="applicant.media = ''" class="btn">
+    ×
+  </button>
+</div>
+<div class="mb-3">
+  <label class="form-label">名前</label>
+  <input type="text" [(ngModel)]="applicant.name" class="form-control" />
+</div>
+<button
+  (click)="addApplicant(); clearInput()"
+  type="button"
+  class="btn btn-outline-info"
+>
+  送信
+</button>
