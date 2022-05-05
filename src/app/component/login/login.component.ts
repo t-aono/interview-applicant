@@ -1,8 +1,8 @@
 import { OnInit, Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'app/auth.service';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { AuthService } from 'app/service/auth.service';
 
 @Component({
   selector: 'ia-list',

@@ -6,7 +6,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { Applicant } from '../../models/applicant';
+import { Applicant } from 'app/model/applicant';
 
 @Component({
   selector: 'ia-detail',

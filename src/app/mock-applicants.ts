@@ -1,4 +1,4 @@
-import { Applicant } from './applicant';
+import { Applicant } from './model/applicant';
 
 export const APPLICANTS: Applicant[] = [
   {
