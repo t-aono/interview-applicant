@@ -10,10 +10,23 @@
   <span class="visually-hidden">Loading...</span>
 </div> -->
 
-<ul *ngFor="let applicant of applicants$ | async">
-  <li>
-    <a routerLink="/detail/{{ applicant.id }}">
-      {{ applicant.name }}
-    </a>
-  </li>
-</ul>
+<table class="table">
+  <thead>
+    <tr>
+      <td>名前</td>
+      <td>画像・動画</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let applicant of applicants$ | async">
+      <td>{{ applicant.name }}</td>
+      <td>
+        <ng-container
+          *ngFor="let url of applicant.id | mediaUrl; let i = index"
+        >
+          <a [href]="url">ファイル{{ i + 1 }}</a>
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>
