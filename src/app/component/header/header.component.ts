@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { signOut } from 'firebase/auth';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'app/service/auth.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'ia-header',
@@ -9,8 +10,9 @@ import { AuthService } from 'app/service/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  title = '面接希望者　入力画面';
+  title = '';
   isAdmin: boolean = false;
+  currentUrl: string = '';
 
   constructor(public authService: AuthService, private router: Router) {}
 
@@ -19,6 +21,16 @@ export class HeaderComponent implements OnInit {
       if (user) this.isAdmin = true;
       else this.isAdmin = false;
     });
+    this.router.events
+      .pipe(filter((event: any) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        console.log(event.url);
+        if (['/', '/done'].includes(event.url) !== false) {
+          this.title = '面接希望者　入力画面';
+        } else {
+          this.title = '面接希望者　管理画面';
+        }
+      });
   }
 
   logout() {
