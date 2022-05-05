@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Applicant } from '../models/applicant';
-import { ApplicantService } from '../models/applicant.service';
+import { Applicant } from '../applicant';
+import { ApplicantService } from '../applicant.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -11,13 +11,12 @@ import { AuthService } from '../auth.service';
 })
 export class FormComponent implements OnInit {
   applicant: Applicant = {
-    media: '',
+    kana: '',
     name: '',
+    birthday: '',
+    tel: '',
   };
   isAdmin: boolean = false;
-  reader = new FileReader();
-  fileBlog: string | ArrayBuffer = '';
-  fileName: string;
 
   constructor(
     private applicantService: ApplicantService,
@@ -32,23 +31,9 @@ export class FormComponent implements OnInit {
     });
   }
 
-  addApplicant(): void {
+  addApplicant(applicant: Applicant): void {
     this.applicantService
-      .addApplicant(this.applicant, this.fileBlog, this.fileName)
-      .then(() => this.router.navigateByUrl('/done'));
-  }
-
-  onChangeMedia(event) {
-    this.applicant.media = event.target.files[0].name;
-    this.fileName = event.target.files[0].name;
-    this.reader.onload = (e) => {
-      this.fileBlog = e.target.result;
-    };
-    this.reader.readAsArrayBuffer(event.target.files[0]);
-  }
-
-  clearInput() {
-    this.applicant.media = '';
-    this.applicant.name = '';
+      .addApplicant(applicant)
+      .then(() => this.router.navigateByUrl('/admin'));
   }
 }
