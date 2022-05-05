@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'app/auth.service';
+import { Applicant } from 'app/models/applicant';
+import { ApplicantService } from 'app/models/applicant.service';
 import { Observable, tap } from 'rxjs';
-import { Applicant } from '../models/applicant';
-import { ApplicantService } from '../models/applicant.service';
-import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'ia-list',
