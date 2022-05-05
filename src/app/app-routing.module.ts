@@ -11,7 +11,6 @@ import { ListComponent } from './component/list/list.component';
 
 const routes: Routes = [
   { path: '', component: FormComponent },
-  { path: 'done', component: DoneComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'admin',
