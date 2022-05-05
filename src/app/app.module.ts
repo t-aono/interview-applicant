@@ -24,7 +24,6 @@ import { ListComponent } from './component/list/list.component';
     ListComponent,
     DetailComponent,
     LoginComponent,
-    DoneComponent,
     MediaUrlPipe,
   ],
   imports: [

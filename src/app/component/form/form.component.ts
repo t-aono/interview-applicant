@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/service/auth.service';
 import { Applicant } from 'app/model/applicant';
-import { ApplicantService } from 'app/model/applicant.service';
+import { ApplicantService } from 'app/service/applicant.service';
 
 @Component({
   selector: 'ia-form',
