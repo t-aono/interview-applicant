@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { canActivate } from '@angular/fire/compat/auth-guard';
 
-import { DetailComponent } from './detail/detail.component';
-import { FormComponent } from './form/form.component';
-import { ListComponent } from './list/list.component';
-import { LoginComponent } from './login/login.component';
+import { DetailComponent } from './component/detail/detail.component';
 import { AuthGuard } from './guard/auth.guard';
+import { FormComponent } from './component/form/form.component';
+import { DoneComponent } from './component/done/done.component';
+import { LoginComponent } from './component/login/login.component';
+import { ListComponent } from './component/list/list.component';
 
 const routes: Routes = [
   { path: '', component: FormComponent },

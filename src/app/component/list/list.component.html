@@ -1,0 +1,35 @@
+<div class="d-flex flex-row-reverse">
+  <a routerLink="/">新規登録</a>
+</div>
+
+<!-- <div
+  *ngIf="applicants$ | async"
+  class="spinner-border text-primary"
+  role="status"
+>
+  <span class="visually-hidden">Loading...</span>
+</div> -->
+
+<table class="table">
+  <thead>
+    <tr>
+      <td>名前</td>
+      <td>画像・動画</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let applicant of applicants$ | async">
+      <td>{{ applicant.name }}</td>
+      <td>
+        <ng-container
+          *ngFor="let url of applicant.id | mediaUrl; let i = index"
+        >
+          <a [href]="url">ファイル{{ i + 1 }}</a>
+        </ng-container>
+      </td>
+      <td>
+        <a routerLink="/detail/{{ applicant.id }}">詳細</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

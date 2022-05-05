@@ -4,15 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AngularFireModule } from '@angular/fire/compat';
 
 import { AppComponent } from './app.component';
-import { FormComponent } from './form/form.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './component/header/header.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ListComponent } from './list/list.component';
-import { DetailComponent } from './detail/detail.component';
+import { DetailComponent } from './component/detail/detail.component';
 import { environment } from '../environments/environment';
-import { LoginComponent } from './login/login.component';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { MediaUrlPipe } from './pipe/media-url.pipe';
+import { FormComponent } from './component/form/form.component';
+import { DoneComponent } from './component/done/done.component';
+import { LoginComponent } from './component/login/login.component';
+import { ListComponent } from './component/list/list.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
     ListComponent,
     DetailComponent,
     LoginComponent,
+    MediaUrlPipe,
   ],
   imports: [
     BrowserModule,
