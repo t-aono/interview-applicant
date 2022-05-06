@@ -1,19 +1,91 @@
-<div class="mb-3" *ngFor="let form of forms$ | async">
-  <b>フォーム{{ form.key }}</b>
-  <div class="row">
+<div class="mb-4" *ngFor="let form of forms$ | async">
+  <div class="lead mb-1">フォーム{{ form.key }}</div>
+  <div class="row align-items-center" *ngIf="form.isValid; else inValid">
     <div class="col-auto">
       <label class="form-label">Label</label>
-      <input type="text" [(ngModel)]="form.label" class="form-control" />
+      <input
+        type="text"
+        [(ngModel)]="form.label"
+        class="form-control"
+        disabled
+      />
     </div>
     <div class="col-auto">
       <label class="form-label">Name</label>
-      <input type="text" [(ngModel)]="form.name" class="form-control" />
+      <input
+        type="text"
+        [(ngModel)]="form.name"
+        class="form-control"
+        disabled
+      />
+    </div>
+    <div class="col-auto align-middle">
+      <button class="btn btn-close" (click)="deleteForm(form.key)"></button>
     </div>
   </div>
+  <ng-template #inValid>
+    <div>非表示</div>
+  </ng-template>
 </div>
-<div class="pt-3 pb-3">
-  <button class="btn btn-outline-secondary">+</button>
-</div>
-<div class="pt-3">
-  <button type="button" class="btn btn-outline-info">保存</button>
+
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn"
+  data-bs-toggle="modal"
+  data-bs-target="#inputModal"
+>
+  ＋
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="inputModal"
+  tabindex="-1"
+  aria-labelledby="inputModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="lead mb-1">フォーム{{ targetForm.key }}</div>
+        <div class="row">
+          <div class="col-auto">
+            <label class="form-label">Label</label>
+            <input
+              type="text"
+              [(ngModel)]="targetForm.label"
+              class="form-control"
+            />
+          </div>
+          <div class="col-auto">
+            <label class="form-label">Name</label>
+            <input
+              type="text"
+              [(ngModel)]="targetForm.name"
+              class="form-control"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          data-bs-dismiss="modal"
+        >
+          キャンセル
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          data-bs-dismiss="modal"
+          (click)="saveForm()"
+        >
+          登録
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
