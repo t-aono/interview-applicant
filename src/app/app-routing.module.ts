@@ -8,6 +8,7 @@ import { FormComponent } from './component/form/form.component';
 import { DoneComponent } from './component/done/done.component';
 import { LoginComponent } from './component/login/login.component';
 import { ListComponent } from './component/list/list.component';
+import { SettingComponent } from './component/setting/setting.component';
 
 const routes: Routes = [
   { path: '', component: FormComponent },
@@ -16,6 +17,11 @@ const routes: Routes = [
   {
     path: 'admin',
     component: ListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'setting',
+    component: SettingComponent,
     canActivate: [AuthGuard],
   },
   {
