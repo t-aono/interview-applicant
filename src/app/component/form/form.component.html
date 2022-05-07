@@ -1,23 +1,33 @@
-<div class="mb-3">
-  <label class="form-label">画像・動画</label>
-  <input
-    type="file"
-    multiple
-    (change)="onChangeMedia($event)"
-    class="form-control"
-  />
-  <button *ngIf="applicant.media" (click)="applicant.media = ''" class="btn">
-    ×
+<form [formGroup]="formGroup">
+  <div class="mb-3">
+    <label class="form-label">名前</label>
+    <input formControlName="name" type="text" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">電話</label>
+    <input formControlName="tel" type="text" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">メール</label>
+    <input formControlName="email" type="text" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">画像・動画</label>
+    <input
+      type="file"
+      multiple
+      (change)="onChangeMedia($event)"
+      class="form-control"
+    />
+    <button *ngIf="applicant.media" (click)="applicant.media = ''" class="btn">
+      ×
+    </button>
+  </div>
+  <button
+    (click)="addApplicant(); clearInput()"
+    type="button"
+    class="btn btn-outline-info"
+  >
+    送信
   </button>
-</div>
-<div class="mb-3">
-  <label class="form-label">名前</label>
-  <input type="text" [(ngModel)]="applicant.name" class="form-control" />
-</div>
-<button
-  (click)="addApplicant(); clearInput()"
-  type="button"
-  class="btn btn-outline-info"
->
-  送信
-</button>
+</form>
