@@ -33,16 +33,11 @@ export class SettingService {
     return this.formsCollection.add(form);
   }
 
-  deleteForm(deleteKey: number) {
+  editForm(newForm: OriginalForm) {
     this.forms$.subscribe((forms) =>
       forms.forEach((form) => {
-        if (form.key === deleteKey) {
-          this.formsCollection.doc(form.id).update({
-            key: form.key,
-            label: form.label,
-            name: form.name,
-            isValid: false,
-          });
+        if (form.key === newForm.key) {
+          this.formsCollection.doc(form.id).update(newForm);
         }
       })
     );

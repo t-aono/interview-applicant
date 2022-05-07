@@ -1,6 +1,6 @@
 <div class="mb-4" *ngFor="let form of forms$ | async">
   <div class="lead mb-1">フォーム{{ form.key }}</div>
-  <div class="row align-items-center" *ngIf="form.isValid; else inValid">
+  <div class="row" *ngIf="form.isValid; else inValid">
     <div class="col-auto">
       <label class="form-label">Label</label>
       <input
@@ -19,13 +19,20 @@
         disabled
       />
     </div>
-    <div class="col-auto align-middle">
-      <button class="btn btn-close" (click)="deleteForm(form.key)"></button>
-    </div>
   </div>
   <ng-template #inValid>
     <div>非表示</div>
   </ng-template>
+  <div class="">
+    <button
+      class="btn btn-link"
+      (click)="editForm(form)"
+      data-bs-toggle="modal"
+      data-bs-target="#inputModal"
+    >
+      変更
+    </button>
+  </div>
 </div>
 
 <!-- Button trigger modal -->
@@ -68,23 +75,36 @@
             />
           </div>
         </div>
+        <div class="form-check form-switch mt-3" *ngIf="targetForm.id">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [checked]="targetForm.isValid"
+            [(ngModel)]="targetForm.isValid"
+          />
+          <label class="form-check-label">表示切り替え</label>
+        </div>
       </div>
       <div class="modal-footer">
         <button
           type="button"
-          class="btn btn-outline-secondary"
-          data-bs-dismiss="modal"
-        >
-          キャンセル
-        </button>
-        <button
-          type="button"
           class="btn btn-outline-primary"
           data-bs-dismiss="modal"
-          (click)="saveForm()"
+          (click)="updateForm()"
+          *ngIf="targetForm.id; else newForm"
         >
-          登録
+          更新
         </button>
+        <ng-template #newForm>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            data-bs-dismiss="modal"
+            (click)="saveForm()"
+          >
+            追加
+          </button>
+        </ng-template>
       </div>
     </div>
   </div>

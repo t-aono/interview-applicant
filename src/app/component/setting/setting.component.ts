@@ -37,9 +37,11 @@ export class SettingComponent implements OnInit {
     this.settingService.addForm(this.targetForm);
   }
 
-  deleteForm(key) {
-    if (window.confirm('非表示にしますか？')) {
-      this.settingService.deleteForm(key);
-    }
+  editForm(form) {
+    this.targetForm = form;
+  }
+
+  updateForm() {
+    this.settingService.editForm(this.targetForm);
   }
 }
