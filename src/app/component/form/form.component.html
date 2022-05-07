@@ -1,16 +1,14 @@
-<form [formGroup]="formGroup">
-  <div class="mb-3">
-    <label class="form-label">名前</label>
-    <input formControlName="name" type="text" class="form-control" />
-  </div>
-  <div class="mb-3">
-    <label class="form-label">電話</label>
-    <input formControlName="tel" type="text" class="form-control" />
-  </div>
-  <div class="mb-3">
-    <label class="form-label">メール</label>
-    <input formControlName="email" type="text" class="form-control" />
-  </div>
+<form>
+  <ng-container *ngFor="let form of forms">
+    <div class="mb-3">
+      <label class="form-label">{{ form.label }}</label>
+      <input
+        (change)="onChangeInput(form.name, $event)"
+        type="text"
+        class="form-control"
+      />
+    </div>
+  </ng-container>
   <div class="mb-3">
     <label class="form-label">画像・動画</label>
     <input
@@ -19,14 +17,16 @@
       (change)="onChangeMedia($event)"
       class="form-control"
     />
-    <button *ngIf="applicant.media" (click)="applicant.media = ''" class="btn">
-      ×
-    </button>
+    <button
+      *ngIf="applicant.media"
+      (click)="applicant.media = ''"
+      class="btn btn-close"
+    ></button>
   </div>
   <button
     (click)="addApplicant(); clearInput()"
     type="button"
-    class="btn btn-outline-info"
+    class="btn btn-outline-info mt-3"
   >
     送信
   </button>

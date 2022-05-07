@@ -27,7 +27,7 @@ export class ApplicantService {
     );
   }
 
-  async addApplicant(applicant: Applicant, fileBlob: any, fileName: string) {
+  async addApplicant(applicant: any, fileBlob: any, fileName: string) {
     const docRef = await this.applicantsCollection.add(applicant);
     const storage = getStorage();
     const mediaRef = ref(storage, `${docRef.id}/${fileName}`);
