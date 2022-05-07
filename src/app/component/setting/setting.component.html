@@ -1,0 +1,111 @@
+<div class="mb-4" *ngFor="let form of forms$ | async">
+  <div class="lead mb-1">フォーム{{ form.key }}</div>
+  <div class="row" *ngIf="form.isValid; else inValid">
+    <div class="col-auto">
+      <label class="form-label">Label</label>
+      <input
+        type="text"
+        [(ngModel)]="form.label"
+        class="form-control"
+        disabled
+      />
+    </div>
+    <div class="col-auto">
+      <label class="form-label">Name</label>
+      <input
+        type="text"
+        [(ngModel)]="form.name"
+        class="form-control"
+        disabled
+      />
+    </div>
+  </div>
+  <ng-template #inValid>
+    <div>非表示</div>
+  </ng-template>
+  <div class="">
+    <button
+      class="btn btn-link"
+      (click)="editForm(form)"
+      data-bs-toggle="modal"
+      data-bs-target="#inputModal"
+    >
+      変更
+    </button>
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn"
+  data-bs-toggle="modal"
+  data-bs-target="#inputModal"
+>
+  ＋
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="inputModal"
+  tabindex="-1"
+  aria-labelledby="inputModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="lead mb-1">フォーム{{ targetForm.key }}</div>
+        <div class="row">
+          <div class="col-auto">
+            <label class="form-label">Label</label>
+            <input
+              type="text"
+              [(ngModel)]="targetForm.label"
+              class="form-control"
+            />
+          </div>
+          <div class="col-auto">
+            <label class="form-label">Name</label>
+            <input
+              type="text"
+              [(ngModel)]="targetForm.name"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="form-check form-switch mt-3" *ngIf="targetForm.id">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [checked]="targetForm.isValid"
+            [(ngModel)]="targetForm.isValid"
+          />
+          <label class="form-check-label">表示切り替え</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          data-bs-dismiss="modal"
+          (click)="updateForm()"
+          *ngIf="targetForm.id; else newForm"
+        >
+          更新
+        </button>
+        <ng-template #newForm>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            data-bs-dismiss="modal"
+            (click)="saveForm()"
+          >
+            追加
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
