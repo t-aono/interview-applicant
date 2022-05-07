@@ -24,12 +24,11 @@ export class HeaderComponent implements OnInit {
     this.router.events
       .pipe(filter((event: any) => event instanceof NavigationEnd))
       .subscribe((event) => {
-        console.log(event.url);
-        if (['/', '/done'].includes(event.url) !== false) {
-          this.title = '面接希望者　入力画面';
-        } else {
-          this.title = '面接希望者　管理画面';
-        }
+        this.title = '面接希望者 ';
+        this.title +=
+          ['/', '/done'].includes(event.url) !== false
+            ? '入力画面'
+            : '管理画面';
       });
   }
 

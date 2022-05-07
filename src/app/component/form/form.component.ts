@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'app/service/auth.service';
 import { Applicant } from 'app/model/applicant';
 import { ApplicantService } from 'app/service/applicant.service';
 
@@ -14,23 +13,16 @@ export class FormComponent implements OnInit {
     media: '',
     name: '',
   };
-  isAdmin: boolean = false;
   reader = new FileReader();
   fileBlog: string | ArrayBuffer = '';
   fileName: string;
 
   constructor(
     private applicantService: ApplicantService,
-    private router: Router,
-    private authService: AuthService
+    private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.authService.getAuthState().subscribe((user) => {
-      if (user) this.isAdmin = true;
-      else this.isAdmin = false;
-    });
-  }
+  ngOnInit(): void {}
 
   addApplicant(): void {
     this.applicantService
