@@ -1,20 +1,21 @@
 <table class="table">
   <thead>
     <tr>
-      <td>名前</td>
-      <td>画像・動画</td>
+      <td *ngFor="let form of forms">{{ form.label }}</td>
+      <!-- <td>画像・動画</td> -->
+      <!-- <td></td> -->
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let applicant of applicants$ | async">
-      <td>{{ applicant.name }}</td>
-      <td>
+      <td *ngFor="let form of forms">{{ applicant[form.name] }}</td>
+      <!-- <td>
         <ng-container
           *ngFor="let url of applicant.id | mediaUrl; let i = index"
         >
           <a [href]="url">ファイル{{ i + 1 }}</a>
         </ng-container>
-      </td>
+      </td> -->
       <td>
         <a routerLink="/detail/{{ applicant.id }}">詳細</a>
       </td>
