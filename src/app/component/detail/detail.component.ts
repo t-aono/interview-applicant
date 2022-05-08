@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -7,23 +7,32 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Applicant } from 'app/model/applicant';
+import { OriginalForm } from '../../model/form';
+import { SettingService } from '../../service/setting.service';
 
 @Component({
   selector: 'ia-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnDestroy {
   private id: string;
   private applicantDoc: AngularFirestoreDocument<Applicant>;
   applicant$: Observable<Applicant>;
   isUpdated: boolean = false;
+  formsSubscription: Subscription;
+  forms: OriginalForm[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private afs: AngularFirestore,
-    private router: Router
-  ) {}
+    private router: Router,
+    private settingService: SettingService
+  ) {
+    this.formsSubscription = this.settingService.forms$.subscribe(
+      (forms) => (this.forms = forms)
+    );
+  }
 
   ngOnInit(): void {
     this.id = `${this.route.snapshot.paramMap.get('id')}`;
@@ -31,9 +40,14 @@ export class DetailComponent implements OnInit {
     this.applicant$ = this.applicantDoc.valueChanges();
   }
 
+  ngOnDestroy(): void {
+    this.formsSubscription.unsubscribe();
+  }
+
   updateApplicant(applicant: Applicant): void {
     this.applicantDoc.update(applicant);
     this.isUpdated = true;
+    setTimeout(() => (this.isUpdated = false), 2000);
   }
 
   deleteApplicant(): void {
