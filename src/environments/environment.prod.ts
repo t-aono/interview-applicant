@@ -1,11 +1,11 @@
 export const environment = {
   firebase: {
-    projectId: 'interview-applicant',
-    appId: '1:957995889814:web:458edd1c1703bae5f9beb7',
-    storageBucket: 'interview-applicant.appspot.com',
-    apiKey: 'AIzaSyAcpIwOJkKxgmxlQTmvrFRFdxS1tgeOVsA',
-    authDomain: 'interview-applicant.firebaseapp.com',
-    messagingSenderId: '957995889814',
+    apiKey: 'AIzaSyBydYw8oLNS3Yjk_EOsjQviSJBuZ_TsThw',
+    authDomain: 'interview-applicant-prod.firebaseapp.com',
+    projectId: 'interview-applicant-prod',
+    storageBucket: 'interview-applicant-prod.appspot.com',
+    messagingSenderId: '752176297266',
+    appId: '1:752176297266:web:e7100a6777b482637c532b',
   },
-  production: true
+  production: true,
 };
