@@ -17,6 +17,7 @@ export class SettingComponent implements OnInit {
     name: '',
     isValid: true,
   };
+  isUpdated: boolean = false;
 
   constructor(private settingService: SettingService) {
     this.forms$ = this.settingService.forms$;
@@ -43,5 +44,7 @@ export class SettingComponent implements OnInit {
 
   updateForm() {
     this.settingService.editForm(this.targetForm);
+    this.isUpdated = true;
+    setTimeout(() => (this.isUpdated = false), 2000);
   }
 }
