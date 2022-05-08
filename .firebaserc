@@ -1,4 +1,7 @@
 {
+  "projects": {
+    "default": "interview-applicant"
+  },
   "targets": {
     "interview-applicant": {
       "hosting": {
@@ -6,9 +9,13 @@
           "interview-applicant"
         ]
       }
+    },
+    "interview-applicant-prod": {
+      "hosting": {
+        "interview-applicant": [
+          "interview-applicant-prod"
+        ]
+      }
     }
-  },
-  "projects": {
-    "default": "interview-applicant"
   }
 }
