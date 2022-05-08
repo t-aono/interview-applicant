@@ -34,6 +34,9 @@
     </button>
   </div>
 </div>
+<div *ngIf="isUpdated" class="alert alert-info mt-5" role="alert">
+  変更しました!
+</div>
 
 <!-- Button trigger modal -->
 <button
@@ -88,12 +91,12 @@
       <div class="modal-footer">
         <button
           type="button"
-          class="btn btn-outline-primary"
+          class="btn btn-outline-info"
           data-bs-dismiss="modal"
           (click)="updateForm()"
           *ngIf="targetForm.id; else newForm"
         >
-          更新
+          変更
         </button>
         <ng-template #newForm>
           <button

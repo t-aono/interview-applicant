@@ -11,17 +11,14 @@
   </ng-container>
   <div class="mb-3">
     <label class="form-label">画像・動画</label>
-    <input
-      type="file"
-      multiple
-      (change)="onChangeMedia($event)"
-      class="form-control"
-    />
-    <button
-      *ngIf="applicant.media"
-      (click)="applicant.media = ''"
-      class="btn btn-close"
-    ></button>
+    <div *ngFor="let n of [1, 2, 3, 4]">
+      <input
+        type="file"
+        multiple
+        (change)="onChangeFile($event, n)"
+        class="form-control mb-3"
+      />
+    </div>
   </div>
   <button
     (click)="addApplicant(); clearInput()"
