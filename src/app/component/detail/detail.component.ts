@@ -6,6 +6,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage';
 import { Applicant } from 'app/model/applicant';
 import { OriginalForm } from '../../model/form';
 import { SettingService } from '../../service/setting.service';
@@ -22,6 +23,10 @@ export class DetailComponent implements OnInit, OnDestroy {
   isUpdated: boolean = false;
   formsSubscription: Subscription;
   forms: OriginalForm[] = [];
+  files: {
+    name: string;
+    url: string;
+  }[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +43,16 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.id = `${this.route.snapshot.paramMap.get('id')}`;
     this.applicantDoc = this.afs.doc<Applicant>(`applicants/${this.id}`);
     this.applicant$ = this.applicantDoc.valueChanges();
+
+    const storage = getStorage();
+    const folderRef = ref(storage, `${this.id}`);
+    listAll(folderRef).then((res) =>
+      res.items.forEach((itemRef) => {
+        console.log(itemRef.name);
+        const name = itemRef.name;
+        getDownloadURL(itemRef).then((url) => this.files.push({ name, url }));
+      })
+    );
   }
 
   ngOnDestroy(): void {

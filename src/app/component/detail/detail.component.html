@@ -7,12 +7,15 @@
       class="form-control"
     />
   </div>
+  <div *ngFor="let file of files">
+    <img [src]="file.url" alt="file.name" class="img-thumbnail" />
+  </div>
   <div class="d-flex gap-3 pt-3">
     <button routerLink="/admin" class="btn btn-outline-secondary">戻る</button>
     <button
       (click)="updateApplicant(applicant)"
       type="button"
-      class="btn btn-outline-info"
+      class="btn btn-outline-secondary"
     >
       更新
     </button>
@@ -21,6 +24,6 @@
     </button>
   </div>
 </ng-container>
-<div *ngIf="isUpdated" class="alert alert-info mt-5" role="alert">
-  更新しました!
-</div>
+
+<!-- Alert -->
+<div *ngIf="isUpdated" class="alert alert-info" role="alert">更新しました!</div>
