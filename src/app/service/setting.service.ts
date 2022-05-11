@@ -30,7 +30,11 @@ export class SettingService {
   }
 
   addForm(form: OriginalForm) {
-    return this.formsCollection.add(form);
+    this.formsCollection.add(form);
+  }
+
+  setFormsCount(count: number) {
+    this.formsCount = count;
   }
 
   editForm(newForm: OriginalForm) {
