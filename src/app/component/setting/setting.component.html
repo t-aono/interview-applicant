@@ -1,42 +1,43 @@
-<div class="mb-4" *ngFor="let form of forms$ | async">
-  <div class="lead mb-1">フォーム{{ form.key }}</div>
-  <div class="row" *ngIf="form.isValid; else inValid">
-    <div class="col-auto">
-      <label class="form-label">Label</label>
-      <input
-        type="text"
-        [(ngModel)]="form.label"
-        class="form-control"
-        disabled
-      />
-    </div>
-    <div class="col-auto">
-      <label class="form-label">Name</label>
-      <input
-        type="text"
-        [(ngModel)]="form.name"
-        class="form-control"
-        disabled
-      />
-    </div>
-  </div>
-  <ng-template #inValid>
-    <div>非表示</div>
-  </ng-template>
-  <div class="">
-    <button
-      class="btn btn-link"
-      (click)="editForm(form)"
-      data-bs-toggle="modal"
-      data-bs-target="#inputModal"
-    >
-      変更
-    </button>
-  </div>
-</div>
-<div *ngIf="isUpdated" class="alert alert-info mt-5" role="alert">
-  変更しました!
-</div>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Label</th>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let form of forms$ | async">
+      <td class="align-middle">{{ form.key }}</td>
+      <td class="align-middle">
+        <ng-container *ngIf="form.isValid; else inValid">{{
+          form.label
+        }}</ng-container>
+        <ng-template #inValid>ー</ng-template>
+      </td>
+      <td class="align-middle">
+        <ng-container *ngIf="form.isValid; else inValid">{{
+          form.name
+        }}</ng-container>
+        <ng-template #inValid>ー</ng-template>
+      </td>
+      <td class="align-middle">
+        <button
+          class="btn btn-link"
+          (click)="editForm(form)"
+          data-bs-toggle="modal"
+          data-bs-target="#inputModal"
+        >
+          変更
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Alert -->
+<div *ngIf="isUpdated" class="alert alert-info" role="alert">変更しました!</div>
 
 <!-- Button trigger modal -->
 <button
@@ -44,6 +45,7 @@
   class="btn"
   data-bs-toggle="modal"
   data-bs-target="#inputModal"
+  (click)="setNewForm()"
 >
   ＋
 </button>
@@ -55,11 +57,12 @@
   tabindex="-1"
   aria-labelledby="inputModalLabel"
   aria-hidden="true"
+  *ngIf="targetForm !== undefined"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="lead mb-1">フォーム{{ targetForm.key }}</div>
+        <div class="lead mb-1">No. {{ targetForm.key }}</div>
         <div class="row">
           <div class="col-auto">
             <label class="form-label">Label</label>
@@ -91,7 +94,7 @@
       <div class="modal-footer">
         <button
           type="button"
-          class="btn btn-outline-info"
+          class="btn btn-outline-secondary"
           data-bs-dismiss="modal"
           (click)="updateForm()"
           *ngIf="targetForm.id; else newForm"
@@ -101,7 +104,7 @@
         <ng-template #newForm>
           <button
             type="button"
-            class="btn btn-outline-primary"
+            class="btn btn-outline-secondary"
             data-bs-dismiss="modal"
             (click)="saveForm()"
           >

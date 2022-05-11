@@ -32,9 +32,9 @@ export class ApplicantService {
     const docRef = await this.applicantsCollection.add(applicant);
     const storage = getStorage();
     uploadFiles.forEach((file) => {
-      const mediaRef = ref(storage, `${docRef.id}/${file.fileName}`);
+      const fileRef = ref(storage, `${docRef.id}/${file.fileName}`);
       const { fileBlob } = file;
-      uploadBytes(mediaRef, fileBlob as ArrayBuffer).then(() =>
+      uploadBytes(fileRef, fileBlob as ArrayBuffer).then(() =>
         console.log('Uploaded a file!')
       );
     });
