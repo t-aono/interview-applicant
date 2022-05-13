@@ -12,6 +12,8 @@ On the management screen, you can display and edit the list of input data and se
 
 ## Demo
 
+![iQ2goXZKApZ5dxjxaxjX1652412066-1652412087](https://user-images.githubusercontent.com/46856574/168205050-f1c905c2-5ab5-4d40-b37e-b33496cbd31a.gif)
+
 <!-- ## VS. -->
 
 ## Requirement
