@@ -8,8 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage';
 import { Applicant } from 'app/model/applicant';
-import { OriginalForm } from '../../model/form';
-import { SettingService } from '../../service/setting.service';
+import { OriginalForm } from 'app/model/form';
+import { SettingService } from 'app/service/setting.service';
 
 @Component({
   selector: 'ia-detail',
@@ -26,6 +26,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   files: {
     name: string;
     url: string;
+    type: 'image' | 'video';
   }[] = [];
 
   constructor(
@@ -48,9 +49,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     const folderRef = ref(storage, `${this.id}`);
     listAll(folderRef).then((res) =>
       res.items.forEach((itemRef) => {
-        console.log(itemRef.name);
         const name = itemRef.name;
-        getDownloadURL(itemRef).then((url) => this.files.push({ name, url }));
+        const type = itemRef.name.includes('mp4') ? 'video' : 'image';
+        getDownloadURL(itemRef).then((url) =>
+          this.files.push({ name, url, type })
+        );
       })
     );
   }
