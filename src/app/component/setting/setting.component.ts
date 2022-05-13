@@ -11,27 +11,35 @@ import { Observable, Subscription } from 'rxjs';
 export class SettingComponent implements OnInit {
   forms$: Observable<OriginalForm[]>;
   formsSubscription: Subscription;
+  isUpdated: boolean = false;
   targetForm: OriginalForm = {
-    key: 0,
+    key: this.settingService.formsCount + 1,
     label: '',
     name: '',
     isValid: true,
   };
-  isUpdated: boolean = false;
 
   constructor(private settingService: SettingService) {
     this.forms$ = this.settingService.forms$;
-    this.targetForm.key = this.settingService.formsCount + 1;
   }
 
   ngOnInit(): void {
-    this.formsSubscription = this.forms$.subscribe(
-      (forms) => (this.targetForm.key = forms.length + 1)
-    );
+    this.formsSubscription = this.forms$.subscribe((forms) => {
+      this.settingService.setFormsCount(forms.length);
+    });
   }
 
   ngOnDestroy(): void {
     this.formsSubscription.unsubscribe();
+  }
+
+  setNewForm() {
+    this.targetForm = {
+      key: this.settingService.formsCount + 1,
+      label: '',
+      name: '',
+      isValid: true,
+    };
   }
 
   saveForm() {

@@ -6,9 +6,10 @@ import {
 } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage';
 import { Applicant } from 'app/model/applicant';
-import { OriginalForm } from '../../model/form';
-import { SettingService } from '../../service/setting.service';
+import { OriginalForm } from 'app/model/form';
+import { SettingService } from 'app/service/setting.service';
 
 @Component({
   selector: 'ia-detail',
@@ -22,6 +23,11 @@ export class DetailComponent implements OnInit, OnDestroy {
   isUpdated: boolean = false;
   formsSubscription: Subscription;
   forms: OriginalForm[] = [];
+  files: {
+    name: string;
+    url: string;
+    type: 'image' | 'video';
+  }[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +44,18 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.id = `${this.route.snapshot.paramMap.get('id')}`;
     this.applicantDoc = this.afs.doc<Applicant>(`applicants/${this.id}`);
     this.applicant$ = this.applicantDoc.valueChanges();
+
+    const storage = getStorage();
+    const folderRef = ref(storage, `${this.id}`);
+    listAll(folderRef).then((res) =>
+      res.items.forEach((itemRef) => {
+        const name = itemRef.name;
+        const type = itemRef.name.includes('mp4') ? 'video' : 'image';
+        getDownloadURL(itemRef).then((url) =>
+          this.files.push({ name, url, type })
+        );
+      })
+    );
   }
 
   ngOnDestroy(): void {

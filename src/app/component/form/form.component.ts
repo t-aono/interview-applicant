@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Applicant } from 'app/model/applicant';
 import { ApplicantService } from 'app/service/applicant.service';
 import { map, Subscription } from 'rxjs';
-import { SettingService } from '../../service/setting.service';
-import { OriginalForm } from '../../model/form';
-import { LocationChangeEvent } from '@angular/common';
+import { OriginalForm } from 'app/model/form';
+import { SettingService } from 'app/service/setting.service';
+import { UploadFile } from 'app/model/uploadFile';
+import { Applicant } from 'app/model/applicant';
 
 @Component({
   selector: 'ia-form',
@@ -13,14 +13,16 @@ import { LocationChangeEvent } from '@angular/common';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit, OnDestroy {
-  applicant: any = {
-    file: ['', '', '', ''],
-  };
+  applicant: any = {};
+  uploadFiles: UploadFile[] = [
+    { fileBlob: '', fileName: '' },
+    { fileBlob: '', fileName: '' },
+    { fileBlob: '', fileName: '' },
+    { fileBlob: '', fileName: '' },
+  ];
   formsSubscription: Subscription;
   forms: OriginalForm[] = [];
   reader = new FileReader();
-  fileBlog: string | ArrayBuffer = '';
-  fileName: string;
 
   constructor(
     private applicantService: ApplicantService,
@@ -43,27 +45,43 @@ export class FormComponent implements OnInit, OnDestroy {
     this.formsSubscription.unsubscribe();
   }
 
-  onChangeInput(inputName, event) {
-    this.applicant[inputName] = event.target.value;
+  onChangeInput(event: Event, inputName: string) {
+    this.applicant[inputName] = (event.target as HTMLInputElement).value;
   }
 
   addApplicant(): void {
     this.applicantService
-      .addApplicant(this.applicant, this.fileBlog, this.fileName)
-      .then(() => this.router.navigateByUrl('/done'));
+      .addApplicant(this.applicant, this.uploadFiles)
+      .then(() => {
+        this.router.navigateByUrl('/done');
+        this.clearInput();
+      });
   }
 
-  onChangeFile(event, n: number) {
-    this.applicant.file[n] = event.target.files[0].name;
-    this.fileName = event.target.files[0].name;
+  onChangeFile(event: Event, n: number) {
+    const { target } = event;
+    const { files } = target as HTMLInputElement;
+
+    this.uploadFiles[n].fileName = files[0].name;
+
     this.reader.onload = (e) => {
-      this.fileBlog = e.target.result;
+      this.uploadFiles[n].fileBlob = e.target.result;
     };
-    this.reader.readAsArrayBuffer(event.target.files[0]);
+    this.reader.readAsArrayBuffer(files[0]);
+  }
+
+  onClickFileClear(event: MouseEvent, n: number) {
+    this.uploadFiles[n].fileName = '';
+
+    const { target } = event;
+    const { previousElementSibling } = target as HTMLButtonElement;
+    (previousElementSibling as HTMLInputElement).value = '';
   }
 
   clearInput() {
-    this.applicant.file = ['', '', '', ''];
-    this.applicant.name = '';
+    this.uploadFiles.forEach((file) => {
+      file.fileBlob = '';
+      file.fileName = '';
+    });
   }
 }

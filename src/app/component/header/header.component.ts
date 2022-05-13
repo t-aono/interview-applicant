@@ -33,8 +33,10 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    signOut(this.authService.auth).then(() =>
-      this.router.navigateByUrl('/login')
-    );
+    if (window.confirm('ログアウトしますか？')) {
+      signOut(this.authService.auth).then(() =>
+        this.router.navigateByUrl('/login')
+      );
+    }
   }
 }
