@@ -66,7 +66,6 @@ export class FormComponent implements OnInit, OnDestroy {
 
     this.reader.onload = (e) => {
       this.uploadFiles[n].fileBlob = e.target.result;
-      console.log(this.uploadFiles);
     };
     this.reader.readAsArrayBuffer(files[0]);
   }
