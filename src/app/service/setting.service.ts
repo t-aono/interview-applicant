@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
-import { Observable, map } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 import { OriginalForm } from 'app/model/form';
 
 @Injectable({
@@ -38,7 +38,7 @@ export class SettingService {
   }
 
   editForm(newForm: OriginalForm) {
-    this.forms$.subscribe((forms) =>
+    this.forms$.pipe(take(1)).subscribe((forms) =>
       forms.forEach((form) => {
         if (form.key === newForm.key) {
           this.formsCollection.doc(form.id).update(newForm);
