@@ -20,7 +20,7 @@ Angular / TypeScript / SCSS / Firebase
 
 ## デモ
 
-![iQ2goXZKApZ5dxjxaxjX1652412066-1652412087](https://user-images.githubusercontent.com/46856574/168205050-f1c905c2-5ab5-4d40-b37e-b33496cbd31a.gif)
+![kpLWezSGG1CAuxE95ESq1659148914-1659148938](https://user-images.githubusercontent.com/46856574/181867173-05fa5cac-d193-4205-94a9-202c502fa31c.gif)
 
 ## ローカルでの動作方法
 
