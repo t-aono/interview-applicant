@@ -12,11 +12,11 @@
 
 **応募者側**
 
-質問への回答、画像や動画のアップロード
+回答の送信、画像や動画のアップロード
 
 ## 使用技術
 
-Angular / TypeScript / SCSS / Firebase
+Angular / TypeScript / SCSS / Firebase（Firestore, Authentication, Storage）
 
 ## デモ
 
