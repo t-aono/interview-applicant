@@ -1,59 +1,57 @@
 # InterviewApplicant
 
-## Overview
+## 概要
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
+面接希望者が入力した内容を管理するためのWebアプリケーション。
 
-## Description
+## 機能
 
-The contents entered by the user and the attached image or video file can be saved in the database and storage.
+**管理者側**
 
-On the management screen, you can display and edit the list of input data and set the form.
+ログイン、質問内容の設定、回答結果の一覧表示、詳細表示、編集、削除
 
-## Demo
+**応募者側**
 
-![iQ2goXZKApZ5dxjxaxjX1652412066-1652412087](https://user-images.githubusercontent.com/46856574/168205050-f1c905c2-5ab5-4d40-b37e-b33496cbd31a.gif)
+回答の送信、画像や動画のアップロード
 
-<!-- ## VS. -->
+## 使用技術
 
-## Requirement
+Angular / TypeScript / SCSS / Firebase（Firestore, Authentication, Storage）
 
-- node : version ^14.15.3
+## デモ
 
-- npm : version ^6.14.9
+![kpLWezSGG1CAuxE95ESq1659148914-1659148938](https://user-images.githubusercontent.com/46856574/181867173-05fa5cac-d193-4205-94a9-202c502fa31c.gif)
 
-## Usage
+## ローカルでの動作方法
 
-### Development server
+Firebase でプロジェクトを作成する必要があります。  
+認証を使用してメールパスワード認証を設定し CloudFirestore にデータベースを作成します。
 
-After creating a project with firebase, create `environments/environment.ts` and paste the setting information.
+1. ソースコードの取得
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+   ```
+   git clone git@github.com:t-aono/interview-applicant.git
+   ```
 
-### Code scaffolding
+2. 環境変数の設定  
+  .env-example をコピーして .env を作成し Firebase project に合わせて環境変数を設定します。
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+   ```
+   cp .env-example .env
+   ```
 
-### Build
+3. パッケージの追加
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+   ```
+   npm ci
+   ```
 
-When using `environment.prod.ts`, run `ng build --prod` to build the project.
+4. ローカル開発環境起動
 
-### Deploy
+   ```
+   npm start
+   ```
 
-Log in with the Firebase CLI and select the project you want to deploy to.  
-Then execute command `firebase deploy`.
+   ローカル環境 URL
+   http://localhost:4200
 
-<!-- ## Install -->
-
-<!-- ## Contribution -->
-
-<!-- ## Licence -->
-
-## Author
-
-[t-aono](https://github.com/t-aono)
-
-<!-- README.md Sample -->
-<!-- https://deeeet.com/writing/2014/07/31/readme/ -->
