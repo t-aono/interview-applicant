@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApplicantService } from 'app/service/applicant.service';
-import { map, Subscription } from 'rxjs';
+import { map, Subscription, tap } from 'rxjs';
 import { OriginalForm } from 'app/model/form';
 import { SettingService } from 'app/service/setting.service';
 import { UploadFile } from 'app/model/uploadFile';
-import { Applicant } from 'app/model/applicant';
 
 @Component({
   selector: 'ia-form',
@@ -23,20 +22,30 @@ export class FormComponent implements OnInit, OnDestroy {
   formsSubscription: Subscription;
   forms: OriginalForm[] = [];
   reader = new FileReader();
+  fileCount = 3;
+  loading = false;
 
   constructor(
     private applicantService: ApplicantService,
     private router: Router,
     private settingService: SettingService
   ) {
+    this.loading = true;
     this.formsSubscription = this.settingService.forms$
-      .pipe(map((forms) => forms.filter((form) => form.isValid)))
-      .subscribe((forms) => {
-        forms.forEach((form) => {
-          this.forms.push(form);
-          this.applicant[form.name] = '';
-        });
-      });
+      .pipe(
+        map((forms) => forms.filter((form) => form.isValid)),
+        tap((forms) => {
+          forms.forEach((form) => {
+            this.forms.push(form);
+            this.applicant[form.name] = '';
+          });
+        })
+      )
+      .subscribe(() => (this.loading = false));
+  }
+
+  get fileCountArray() {
+    return [...Array(this.fileCount).keys()];
   }
 
   ngOnInit(): void {}

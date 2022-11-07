@@ -37,7 +37,7 @@ Firebase でプロジェクトを作成する必要があります。
   .env-example をコピーして .env を作成し Firebase project に合わせて環境変数を設定します。
 
    ```
-   cp .env-example .env
+   cp src/environments/environment.example.ts .env
    ```
 
 3. パッケージの追加
@@ -52,6 +52,7 @@ Firebase でプロジェクトを作成する必要があります。
    npm start
    ```
 
-   ローカル環境 URL
-   http://localhost:4200
+## ローカル環境 URL
+- 利用者画面　http://localhost:4200
+- 管理者ログイン　http://localhost:4200/admin
 

@@ -1,15 +1,24 @@
-<table class="table table-bordered">
+<table class="table table-bordered" [formGroup]="formGroup">
   <thead>
-    <tr>
+    <tr class="text-center">
       <th>No</th>
       <th>Label</th>
       <th>Name</th>
-      <th></th>
+      <!-- <th></th> -->
     </tr>
   </thead>
-  <tbody>
+  <tbody formArrayName="rows">
+    <tr
+      *ngFor="let control of rowsControls; let i = index"
+      [formGroup]="control"
+    >
+      <td>{{ i + 1 }}</td>
+      <td><input formControlName="label" /></td>
+      <td><input formControlName="name" /></td>
+    </tr>
+    <!--
     <tr *ngFor="let form of forms$ | async">
-      <td class="align-middle">{{ form.key }}</td>
+      <td class="align-middle text-center">{{ form.key }}</td>
       <td class="align-middle">
         <ng-container *ngIf="form.isValid; else inValid">{{
           form.label
@@ -22,7 +31,7 @@
         }}</ng-container>
         <ng-template #inValid>ー</ng-template>
       </td>
-      <td class="align-middle">
+        <td class="align-middle">
         <button
           class="btn btn-link"
           (click)="editForm(form)"
@@ -33,7 +42,7 @@
         </button>
       </td>
     </tr>
-  </tbody>
+  --></tbody>
 </table>
 
 <!-- Alert -->
