@@ -13,12 +13,12 @@ export class SettingComponent implements OnInit {
   forms$: Observable<OriginalForm[]>;
   formsSubscription: Subscription;
   isUpdated: boolean = false;
-  targetForm: OriginalForm = {
-    key: this.settingService.formsCount + 1,
-    label: '',
-    name: '',
-    isValid: true,
-  };
+  // targetForm: OriginalForm = {
+  //   key: this.settingService.formsCount + 1,
+  //   label: '',
+  //   name: '',
+  //   isValid: true,
+  // };
   formGroup = new FormGroup({
     rows: new FormArray([]),
   });

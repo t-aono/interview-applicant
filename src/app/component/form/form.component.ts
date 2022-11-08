@@ -22,7 +22,7 @@ export class FormComponent implements OnInit, OnDestroy {
   formsSubscription: Subscription;
   forms: OriginalForm[] = [];
   reader = new FileReader();
-  fileCount = 3;
+  uploadFileCount = 2;
   loading = false;
 
   constructor(
@@ -44,8 +44,8 @@ export class FormComponent implements OnInit, OnDestroy {
       .subscribe(() => (this.loading = false));
   }
 
-  get fileCountArray() {
-    return [...Array(this.fileCount).keys()];
+  get uploadFileCountArray() {
+    return [...Array(this.uploadFileCount).keys()];
   }
 
   ngOnInit(): void {}
