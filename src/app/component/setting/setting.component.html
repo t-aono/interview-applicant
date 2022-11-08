@@ -1,4 +1,4 @@
-<table class="table table-bordered" [formGroup]="formGroup">
+<table class="table table-bordered">
   <thead>
     <tr class="text-center">
       <th>No</th>
@@ -7,9 +7,9 @@
       <th>On/Off</th>
     </tr>
   </thead>
-  <tbody formArrayName="rows">
+  <tbody>
     <tr
-      *ngFor="let control of rowsControls; let i = index"
+      *ngFor="let control of formArrayControls; let i = index"
       [formGroup]="control"
     >
       <td class="align-middle text-center">{{ i + 1 }}</td>
