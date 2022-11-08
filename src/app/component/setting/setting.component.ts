@@ -46,6 +46,7 @@ export class SettingComponent implements OnInit {
                 id: new FormControl(form.id, []),
                 label: new FormControl(form.label, []),
                 name: new FormControl(form.name, []),
+                isValid: new FormControl(form.isValid, []),
               })
             )
           );
@@ -76,6 +77,7 @@ export class SettingComponent implements OnInit {
         id: new FormControl(id, []),
         label: new FormControl('', []),
         name: new FormControl('', []),
+        isValid: new FormControl(true, []),
       })
     );
   }
