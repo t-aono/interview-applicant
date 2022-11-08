@@ -1,22 +1,15 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { OriginalForm } from 'app/model/form';
 import { SettingService } from 'app/service/setting.service';
-import {
-  debounce,
-  debounceTime,
-  map,
-  Observable,
-  Subscription,
-  tap,
-} from 'rxjs';
+import { debounceTime, Observable, Subscription, tap, take } from 'rxjs';
 
 @Component({
   selector: 'ia-setting',
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.scss'],
 })
-export class SettingComponent implements OnInit, AfterViewInit {
+export class SettingComponent implements OnInit {
   forms$: Observable<OriginalForm[]>;
   formsSubscription: Subscription;
   isUpdated: boolean = false;
@@ -43,52 +36,47 @@ export class SettingComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.formsSubscription = this.forms$.subscribe((forms) => {
-      forms.forEach((form) =>
-        this.rows.push(
-          new FormGroup({
-            label: new FormControl(form.label, []),
-            name: new FormControl(form.name, []),
-          })
-        )
-      );
-      // this.settingService.setFormsCount(forms.length);
-    });
-  }
-
-  ngAfterViewInit(): void {
-    this.formGroup.valueChanges
+    this.formsSubscription = this.forms$
       .pipe(
-        debounceTime(500),
-        tap((v) => console.log(v))
+        take(1),
+        tap((forms) => {
+          forms.forEach((form) =>
+            this.rows.push(
+              new FormGroup({
+                id: new FormControl(form.id, []),
+                label: new FormControl(form.label, []),
+                name: new FormControl(form.name, []),
+              })
+            )
+          );
+        })
       )
-      .subscribe();
+      .subscribe(() => {
+        this.formGroup.valueChanges
+          .pipe(
+            debounceTime(2000),
+            tap(({ rows }) => this.settingService.updateRows(rows))
+          )
+          .subscribe(() => {
+            this.isUpdated = true;
+            setTimeout(() => (this.isUpdated = false), 2000);
+          });
+      });
   }
 
   ngOnDestroy(): void {
     this.formsSubscription.unsubscribe();
   }
 
-  setNewForm() {
-    this.targetForm = {
-      key: this.settingService.formsCount + 1,
-      label: '',
-      name: '',
-      isValid: true,
-    };
-  }
-
-  saveForm() {
-    this.settingService.addForm(this.targetForm);
-  }
-
-  editForm(form) {
-    this.targetForm = form;
-  }
-
-  updateForm() {
-    this.settingService.editForm(this.targetForm);
-    this.isUpdated = true;
-    setTimeout(() => (this.isUpdated = false), 2000);
+  async addForm() {
+    const key = this.rows.length + 1;
+    const id = await this.settingService.addNewRow(key);
+    this.rows.push(
+      new FormGroup({
+        id: new FormControl(id, []),
+        label: new FormControl('', []),
+        name: new FormControl('', []),
+      })
+    );
   }
 }

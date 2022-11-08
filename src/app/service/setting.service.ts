@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
-import { Observable, map, take } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { OriginalForm } from 'app/model/form';
 
 @Injectable({
@@ -29,21 +29,18 @@ export class SettingService {
     );
   }
 
-  addForm(form: OriginalForm) {
-    this.formsCollection.add(form);
+  updateRows(rows) {
+    rows.forEach(async (row) => {
+      if (row.id && row.label && row.name) {
+        await this.formsCollection.doc(row.id).update(row);
+      }
+    });
   }
 
-  setFormsCount(count: number) {
-    this.formsCount = count;
-  }
-
-  editForm(newForm: OriginalForm) {
-    this.forms$.pipe(take(1)).subscribe((forms) =>
-      forms.forEach((form) => {
-        if (form.key === newForm.key) {
-          this.formsCollection.doc(form.id).update(newForm);
-        }
-      })
-    );
+  async addNewRow(key: number): Promise<string> {
+    const formDoc = await this.formsCollection.doc();
+    const id = formDoc.ref.id;
+    formDoc.set({ id, key, label: '', name: '', isValid: true });
+    return id;
   }
 }
