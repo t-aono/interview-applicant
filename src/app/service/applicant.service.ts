@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { ref, uploadBytes } from 'firebase/storage';
 import { UploadFile } from 'app/model/uploadFile';
 import { Applicant } from 'app/model/applicant';
+import { Storage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApplicantService {
   private applicantsCollection: AngularFirestoreCollection<Applicant>;
+  private storage: Storage = inject(Storage);
   applicants$: Observable<Applicant[]>;
 
   constructor(private afs: AngularFirestore) {
@@ -30,13 +32,10 @@ export class ApplicantService {
 
   async addApplicant(applicant: Applicant, uploadFiles: UploadFile[]) {
     const docRef = await this.applicantsCollection.add(applicant);
-    const storage = getStorage();
     uploadFiles.forEach((file) => {
-      const fileRef = ref(storage, `${docRef.id}/${file.fileName}`);
+      const fileRef = ref(this.storage, `${docRef.id}/${file.fileName}`);
       const { fileBlob } = file;
-      uploadBytes(fileRef, fileBlob as ArrayBuffer).then(() =>
-        console.log('Uploaded a file!')
-      );
+      uploadBytes(fileRef, fileBlob as ArrayBuffer);
     });
     return docRef;
   }
