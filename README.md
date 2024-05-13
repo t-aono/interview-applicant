@@ -16,7 +16,7 @@
 
 ## 使用技術
 
-Angular / TypeScript / SCSS / Firebase（Firestore, Authentication, Storage）
+Angular / TypeScript / Firebase（Firestore, Authentication, Storage）/ Bootstrap
 
 ## デモ
 
