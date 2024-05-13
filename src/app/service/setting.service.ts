@@ -1,36 +1,33 @@
-import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-} from '@angular/fire/compat/firestore';
+import { Injectable, inject } from '@angular/core';
 import { Observable, map, take } from 'rxjs';
 import { OriginalForm } from 'app/model/form';
+import {
+  DocumentReference,
+  Firestore,
+  addDoc,
+  collection,
+  collectionData,
+  doc,
+  updateDoc,
+} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SettingService {
-  private formsCollection: AngularFirestoreCollection<OriginalForm>;
+  firestore: Firestore = inject(Firestore);
+  formsCollection = collection(this.firestore, 'forms');
   forms$: Observable<OriginalForm[]>;
   formsCount = 0;
 
-  constructor(private afs: AngularFirestore) {
-    this.formsCollection = afs.collection<OriginalForm>('forms');
-    this.forms$ = this.formsCollection.snapshotChanges().pipe(
-      map((actions) =>
-        actions
-          .map((a) => {
-            const data = a.payload.doc.data() as OriginalForm;
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          })
-          .sort((a, b) => a.key - b.key)
-      )
-    );
+  constructor() {
+    this.forms$ = (
+      collectionData(this.formsCollection) as Observable<OriginalForm[]>
+    ).pipe(map((data) => data.sort((a, b) => a.key - b.key)));
   }
 
   addForm(form: OriginalForm) {
-    this.formsCollection.add(form);
+    addDoc(this.formsCollection, form);
   }
 
   setFormsCount(count: number) {
@@ -41,7 +38,8 @@ export class SettingService {
     this.forms$.pipe(take(1)).subscribe((forms) =>
       forms.forEach((form) => {
         if (form.key === newForm.key) {
-          this.formsCollection.doc(form.id).update(newForm);
+          const document = doc(this.formsCollection, form.id);
+          updateDoc(document as DocumentReference<OriginalForm>, newForm);
         }
       })
     );
