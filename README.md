@@ -17,8 +17,3 @@
 ## 使用技術
 
 Angular / TypeScript / Firebase（Firestore, Authentication, Storage）/ Bootstrap
-
-## デモ
-
-![kpLWezSGG1CAuxE95ESq1659148914-1659148938](https://user-images.githubusercontent.com/46856574/181867173-05fa5cac-d193-4205-94a9-202c502fa31c.gif)
-
