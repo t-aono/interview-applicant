@@ -9,10 +9,12 @@ import { DoneComponent } from './component/done/done.component';
 import { LoginComponent } from './component/login/login.component';
 import { ListComponent } from './component/list/list.component';
 import { SettingComponent } from './component/setting/setting.component';
+import { SignupComponent } from './component/signup/signup.component';
 
 const routes: Routes = [
   { path: '', component: FormComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'done', component: DoneComponent },
   {
     path: 'admin',

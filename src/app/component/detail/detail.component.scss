@@ -7,12 +7,17 @@
 .files-wrap {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 
   & > div {
+    margin-top: 24px;
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     & > img {
-      min-width: 300px;
+      width: 300px;
     }
   }
 }

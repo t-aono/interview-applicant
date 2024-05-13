@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { Observable, map, take } from 'rxjs';
+import { OriginalForm } from 'app/model/form';
+import { Firestore } from '@angular/fire/firestore';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
-import { Observable, map, take } from 'rxjs';
-import { OriginalForm } from 'app/model/form';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SettingService {
+  firestore: Firestore = inject(Firestore);
   private formsCollection: AngularFirestoreCollection<OriginalForm>;
   forms$: Observable<OriginalForm[]>;
   formsCount = 0;
