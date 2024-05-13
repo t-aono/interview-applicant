@@ -27,6 +27,7 @@ import { ListComponent } from './component/list/list.component';
 import { SettingComponent } from './component/setting/setting.component';
 import { DateStringPipe } from './pipe/date-string.pipe';
 import { connectAuthEmulator } from 'firebase/auth';
+import { SignupComponent } from './component/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { connectAuthEmulator } from 'firebase/auth';
     LoginComponent,
     SettingComponent,
     DateStringPipe,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
